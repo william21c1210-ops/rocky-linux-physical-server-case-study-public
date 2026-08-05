@@ -1,0 +1,78 @@
+SANITIZED PUBLIC EVIDENCE
+Source: real lab observation; private original retained separately.
+Identifiers and exact infrastructure details were removed.
+This file is a manually sanitized observation summary, not a raw command transcript.
+
+Record: eno1 Link/Carrier controlled incident
+Date: 2026-08-04
+Server: <LAB-SERVER>
+Primary path interface: eno4
+Test path interface: eno1
+Status: Resolved within the controlled Layer 1 test
+Use of the training lab server for this limited exercise was permitted.
+No formal change-ticket record was used.
+
+TIME NOTE
+The times below are command-observation times.
+They are not asserted as the exact moments of physical cable actions.
+
+11:00:59 - ORIGINAL OPERATING STATE
+eno1 test cable: not connected
+eno1 carrier: 0
+eno1 link: not detected
+Primary path: eno4
+
+12:29:42 - TEMPORARY TEST BASELINE
+eno1 connected directly to the laptop with the test cable
+eno1 carrier: 1
+eno1 speed and duplex: 1Gbps Full Duplex
+NetworkManager profile: present but inactive
+Active IPv4 connection: not established
+IPv4 DHCP lease on the direct segment: not received
+
+12:31:02 - FIRST DISCONNECT CHECK
+eno1 carrier: no change observed
+This check was not classified as a successful incident.
+The reason for no change was not determined.
+
+12:33:51 - RETRY CHECK
+eno1 carrier: 0
+eno1 state: NO-CARRIER
+eno1 link: not detected
+Observed cause scope: laptop-side test cable disconnection and physical Link loss
+
+12:35:40 - ROLLBACK CHECK
+The same test cable was reconnected.
+eno1 carrier: 1
+eno1 speed and duplex: 1Gbps Full Duplex
+Rollback target: the temporary test baseline
+IPv4 DHCP lease on the direct segment: not received
+
+12:39:44 - TEST TEARDOWN CHECK
+The test cable was removed after rollback verification.
+eno1 carrier: 0
+eno1 returned to the original unused operating state.
+This teardown was separate from rollback.
+
+POST-TEARDOWN PRIMARY PATH OBSERVATIONS
+At the recorded post-test check, eno4 Link was observed up.
+The route lookup for the external destination selected eno4.
+sshd was observed active.
+TCP 22 was observed listening.
+One fresh SSH session succeeded after teardown.
+
+NOT PERFORMED OR NOT PROVEN
+Gateway ping: not performed
+External ping: not performed
+HTTP validation: not performed
+Mail service validation: not performed
+Packet loss or latency measurement: not performed
+eno1 IPv4 communication: not performed
+Impact to every user: not proven
+Switch, VLAN, and full physical topology: not verified
+Actual recovery through iLO: not performed
+
+INTERPRETATION LIMIT
+Resolved means the controlled Link-loss condition was cleared.
+It does not mean eno1 was placed in service.
+The final eno1 carrier value of 0 is the original unused state after test teardown.

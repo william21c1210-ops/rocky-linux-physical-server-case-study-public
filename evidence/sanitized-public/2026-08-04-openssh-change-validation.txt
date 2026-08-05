@@ -1,0 +1,65 @@
+SANITIZED PUBLIC EVIDENCE
+Source: real lab observation; private original retained separately.
+Identifiers and exact infrastructure details were removed.
+This file is a manually sanitized observation summary, not a raw command transcript.
+
+Record: CHANGE-001 OpenSSH configuration-copy validation
+Observation date: 2026-08-03
+Public record prepared: 2026-08-04
+Target: <LAB-SERVER>
+Validation client: <CONTROL-NODE>
+
+[Scope]
+The operating OpenSSH configuration was not edited.
+No configuration was applied to the running service.
+No sshd reload was performed.
+No sshd restart was performed.
+Only a temporary copy of /etc/ssh/sshd_config was changed.
+Use of the training lab server for this limited exercise was permitted.
+No formal change-ticket record was used.
+This record states only the scope that could be confirmed.
+
+[Pre-check]
+The current operating configuration was checked with sshd -t.
+Result: exit code 0.
+The sshd service was observed as active.
+TCP port 22 was observed Listening on IPv4 and IPv6.
+
+[Valid-copy check]
+/etc/ssh/sshd_config was copied to temporary TEST_CONFIG.
+The copy was checked with sshd -t -f TEST_CONFIG.
+Result: exit code 0.
+The operating files under /etc/ssh were not changed.
+
+[Invalid-copy check]
+Project2InvalidDirective was added only to TEST_CONFIG.
+The modified copy was checked with sshd -t -f TEST_CONFIG.
+Result: exit code 255.
+The validator reported: Bad configuration option.
+The invalid copy was not applied to the running service.
+
+[Post-check]
+The sshd service was again observed as active.
+TCP port 22 was again observed Listening.
+After the OpenSSH configuration-copy validation, one fresh SSH session from <CONTROL-NODE> succeeded.
+This confirms only that one new connection worked at that time.
+It does not prove every authentication method, client, or user path.
+External Ping was not performed.
+Gateway Ping was not performed.
+HTTP and other application checks were not performed.
+Packet loss and latency were not measured.
+
+[Cleanup and rollback]
+Temporary validation material was removed after the checks.
+Operating configuration rollback: not applicable.
+Reason: no operating configuration was changed or applied.
+
+[Limitation]
+A temporary main configuration file was used.
+It was not confirmed that every absolute Include target was separately copied.
+The test must not be described as a completely isolated configuration tree.
+
+[Outcome]
+The valid temporary copy passed validation.
+The intentionally invalid temporary copy was rejected before application.
+The operating OpenSSH configuration was not changed.

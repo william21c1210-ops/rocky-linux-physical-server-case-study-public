@@ -1,0 +1,79 @@
+SANITIZED PUBLIC EVIDENCE
+Source: real lab observation; private original retained separately.
+Identifiers and exact infrastructure details were removed.
+This file is a manually sanitized observation summary, not a raw command transcript.
+
+Record: Rocky Linux physical server baseline summary
+Observation dates: 2026-08-03 and 2026-08-04
+Public server name: <LAB-SERVER>
+
+[System]
+Operating system: Rocky Linux 10.2
+Kernel: Linux 6.12 series
+Server model: HPE ProLiant DL360 Gen9
+Onboard Ethernet interfaces observed: eno1, eno2, eno3, eno4
+
+[Primary path: eno4]
+Physical mapping: onboard NIC 4 to eno4
+Driver: tg3
+Administrative and link flags: UP and LOWER_UP
+Carrier: 1
+Operstate: up
+Negotiated link: 1000Mb/s Full Duplex
+Autonegotiation: on
+IPv4: <SERVER-IP>/<SERVER-PREFIX>
+Active NetworkManager connection: <PRIMARY-CONNECTION>
+Default gateway: <DEFAULT-GATEWAY>
+Default route egress: eno4
+Route lookup for <EXTERNAL-IP>: eno4
+Observed role: primary external SSH path
+
+[Auxiliary path: eno1]
+Physical mapping: onboard NIC 1 to eno1
+Normal environment: no test cable attached
+Normal-environment carrier: 0
+Normal-environment operstate: down
+IPv4 address: none observed
+Gateway: none observed
+NetworkManager profile: <AUX-CONNECTION>, present but inactive
+Active IPv4 connection: not established
+Observed role: normally unused; reserved for the controlled Link test
+
+[Other interfaces]
+eno2: down, no carrier, unused
+eno3: down, no carrier, unused
+Detailed physical-port mapping was not asserted for eno2 or eno3.
+
+[Services and listeners]
+OpenSSH server: loaded, active, running
+TCP 22: Listening on IPv4 and IPv6
+TCP 9090: Listening
+TCP 9090 Listening was observed, but its process and socket state were not independently verified with a separate command.
+No Cockpit socket activity state was inferred from the historic observation.
+firewalld: active
+Active public zone interface: eno4
+SSH and Cockpit service allowances were present in the observed zone.
+Nginx: not installed or not found
+Local HTTP: not performed
+
+[Post-test external path observation]
+At the recorded post-test check, eno4 Link was observed up.
+The checked external route selected eno4.
+sshd was observed active.
+TCP 22 was observed Listening.
+One fresh SSH session succeeded after teardown.
+
+[Not verified]
+Gateway Ping or external Ping
+HTTP or mail-service access
+Packet loss or latency
+Impact to every user or authentication method
+IPv4 communication over the eno1 direct-link segment
+Switch ports, VLANs, or the complete network topology
+TCP 9090 process ownership or cockpit.socket state
+Recovery of an actual outage through iLO
+Photographs or image metadata
+
+[Publication note]
+IP, IPv6, MAC, hostname, username, connection UUID, management address, and physical-location details were removed.
+The generic pre-existing hardware health warning was kept outside the network experiment and was not diagnosed here.
