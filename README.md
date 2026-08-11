@@ -206,7 +206,7 @@ DIMM, 드라이브 베이, 냉각팬, 추가 부품 고정 구조와 내부 SD �
 |---|---|
 | onboard NIC 4와 `eno4`가 주 Route·SSH 경로 | [`baseline`](docs/baseline.md), [`mapping`](docs/physical-logical-mapping.md), [`baseline evidence`](evidence/sanitized-public/2026-08-04-baseline-summary.txt) |
 | OpenSSH 오류 설정이 적용 전 검사에서 거부됨 | [`CHANGE-001`](changes/CHANGE-001-openssh-config-validation.md), [`OpenSSH evidence`](evidence/sanitized-public/2026-08-04-openssh-change-validation.txt) |
-| `eno1` Carrier 변화와 같은 케이블 재연결 Rollback | [`CHANGE-002`](changes/CHANGE-002-eno1-link-carrier.md), [`INCIDENT-001`](incidents/observed/INCIDENT-001-eno1-link-carrier.md), [`Link evidence`](evidence/sanitized-public/2026-08-04-eno1-link-carrier.txt) |
+| `eno1` Carrier 변화와 같은 케이블 재연결 Rollback | [`CHANGE-002`](changes/CHANGE-002-eno1-link-carrier.md), [`INCIDENT-001`](incidents/observed/INCIDENT-001-eno1-link-carrier.md), [`Link evidence`](evidence/sanitized-public/2026-08-04-eno1-link-carrier.txt), [`direct-link photo`](evidence/approved-photos/link-carrier/01-author-eno1-direct-rj45-test.jpg) |
 | 물리 상태부터 실제 SSH까지 확인한 순서 | [`eno1·eno4 실습 체크리스트`](docs/troubleshooting-runbook.md) |
 | 유휴 서버 활용 대안, 내부 구조 확인과 3TB 디스크 2개 물리 장착 | [`CHANGE-003 작업 기록 및 시간순 사진`](changes/CHANGE-003-idle-server-disk-installation.md) |
 | 별도 유휴 DL360 Gen9의 상판 서비스 맵·내부 구조 관찰 | [`섀시 관찰 기록`](docs/dl360-gen9-chassis-observation.md) |

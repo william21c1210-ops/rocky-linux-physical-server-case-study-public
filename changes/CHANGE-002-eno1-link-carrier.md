@@ -79,5 +79,17 @@ Rollback에서는 Carrier 1과 1Gbps Full Duplex를 다시 관찰했다.
 `eno1` IPv4 통신, Gateway·외부 Ping, HTTP, 메일, 손실·지연,
 모든 사용자 영향과 전체 물리 토폴로지는 확인하지 않았다.
 
+## 사진 기록
+
+<img src="../evidence/approved-photos/link-carrier/01-author-eno1-direct-rj45-test.jpg" alt="작성자가 노트북과 빨간 RJ45 케이블로 보조 Link 경로를 직접 연결한 작업 맥락" width="720">
+
+이 사진은 노트북과 빨간 RJ45 케이블, 랙 환경을 통해 주 경로와 분리해 사용한
+보조 Link 테스트 경로의 직접 RJ45 물리 작업 맥락을 보여 주는 보조 증거다.
+
+사진만으로 물리 NIC 1과 `eno1`의 매핑이나 Carrier 값을 입증하지 않는다.
+정확한 매핑과 상태 값은 [`baseline`](../docs/baseline.md),
+[`mapping`](../docs/physical-logical-mapping.md),
+[`Link evidence`](../evidence/sanitized-public/2026-08-04-eno1-link-carrier.txt)가 담당한다.
+
 상세 타임라인은
 [`INCIDENT-001`](../incidents/observed/INCIDENT-001-eno1-link-carrier.md)에 남겼다.
