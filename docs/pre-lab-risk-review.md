@@ -2,6 +2,14 @@
 
 > Pre-lab risk review: 물리 NIC 실험 전에 접속 경로와 중단 조건을 정리한 기록이다.
 
+## 문서 적용 범위
+
+이 검토는 DL360 Gen9 · Network / SSH test unit에서 수행한 `eno1` Link/Carrier 실험에 적용한다.
+별도 DL360 Gen9 · Storage / OS provisioning unit의 HDD·Smart Array·Rocky Linux 작업과,
+모델 미확정 유휴 서버의 3TB HDD 물리 장착에는 소급 적용하지 않는다.
+
+각 결과는 서로 다른 물리 장비에서 나온 것이며 장비 사이에 하나의 end-to-end 경로가 있다고 해석하지 않는다.
+
 ## 경로 분리
 
 - `eno4`는 기존 주 접속과 외부 Route 경로로 유지한다.
@@ -40,3 +48,14 @@
 
 실습 전부터 있던 일반 하드웨어 상태 경고는 이번 NIC 실험의 원인으로 다루지 않는다.
 해당 경고의 진단과 복구는 이 작업 범위 밖이다.
+
+## 별도 Storage / OS provisioning 기록의 경계
+
+별도 DL360 Gen9에서는 500GB SATA HDD, Smart Array P440ar,
+single-drive RAID0 Logical Drive와 Rocky Linux 10.2 설치 흐름을 확인했다.
+이 결과는 Network / SSH test unit의 접속 안전 검토를 변경하지 않는다.
+
+첫 installer boot failure의 정확한 원인은 확정하지 않았고,
+single-drive RAID0을 redundancy나 production storage로 평가하지 않았다.
+상세 수행·실패·retry와 미확인 범위는
+[`CHANGE-004`](../changes/CHANGE-004-storage-os-provisioning.md)에 별도로 기록했다.

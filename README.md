@@ -1,12 +1,12 @@
-# 물리 서버 NIC 진단 및 유휴 서버 디스크 장착 실습
+# 물리 서버 Link/OpenSSH 검증과 스토리지·Rocky Linux 프로비저닝
 
-**HPE 서버의 Rocky Linux NIC·Link/Carrier 검증, OpenSSH 사전 검사, 별도 유휴 장비의 3TB 디스크 2개 물리 장착**
+**서로 다른 HPE 실습 장비에서 NIC·Link/OpenSSH, 물리 HDD 장착, Smart Array와 Rocky Linux 설치 흐름을 역할별로 확인한 기록**
 
 ## 1. 한 문장 요약
 
-Azure VM에서 보이지 않던 물리 계층이 궁금해 기존 HPE 서버에서 Rocky Linux의
-NIC·Link/Carrier와 OpenSSH 설정을 검증했고, 내부 저장장치가 없던 별도 유휴 서버에서는
-강사의 허가 아래 팀원과 3TB 디스크 2개를 물리 장착하며 서버 내부 구조와 안전한 랙 작업을 경험했다.
+Azure VM에서 보이지 않던 물리 계층이 궁금해 별도 HPE 실습 장비에서
+NIC·Link/Carrier와 OpenSSH를 검증하고, 모델 미확정 유휴 서버에는 3TB HDD 2개를 물리 장착했으며,
+또 다른 DL360 Gen9에서는 500GB HDD의 P440ar single-drive RAID0 구성과 Rocky Linux 10.2 설치를 확인했다.
 
 ![프로젝트 2의 검증된 물리·논리 범위도](docs/diagrams/project2-verified-scope.png)
 
@@ -15,6 +15,8 @@ NIC·Link/Carrier와 OpenSSH 설정을 검증했고, 내부 저장장치가 없�
 - 물리 NIC 4 ↔ `eno4`, NIC 1 ↔ `eno1`을 매핑하고 Carrier `0 → 1 → 1(첫 분리에서 변화 없음) → 0 → 1 → 0` 흐름을 확인했다.
 - OpenSSH 현재 설정과 정상 복사본은 종료 코드 `0`, 오류 복사본은 `255`였으며 운영 파일 변경과 reload·restart는 없었다.
 - 모델 미확정 유휴 서버에 3TB HDD 2개를 물리 장착했다. Controller 인식·RAID·SMART·OS·filesystem·실제 사용 가능 용량은 확인하지 않았다.
+- 별도 DL360 Gen9에서 500GB SATA HDD를 장착하고 P440ar single-drive RAID0, Logical Drive 1과 465.73 GiB를 구성했다.
+- Rocky installer에서 HP Logical Volume `/dev/sda`를 확인하고 Rocky Linux 10.2 설치와 GUI boot를 확인했다. 첫 installer boot 실패의 정확한 원인은 확정하지 않았다.
 
 ## 2. 시작 이유
 
@@ -38,10 +40,16 @@ NIC·Link/Carrier와 OpenSSH 설정을 검증했고, 내부 저장장치가 없�
 이후 3TB 디스크 2개가 추가되자 기존 환경에 영향을 덜 주는 집중 배치 대안을 제안했고,
 강사의 허가 아래 서버를 랙에서 다시 분리하지 않고 HDD를 물리 장착했다.
 
+이후 추가 HDD를 사용할 수 있게 되면서, 앞선 reference setup에서 배운 흐름을
+별도 DL360 Gen9에서 직접 다시 수행했다. 500GB HDD와 Smart Array를 구성하고
+첫 installer boot 실패도 숨기지 않은 채 Rocky Linux 설치 완료까지 단계별로 기록했다.
+
 ## 3. 실제 환경
 
-아래 환경은 NIC·Rocky Linux 실습에 사용한 기존 서버다.
-디스크를 장착한 유휴 서버는 별도 장비이며 모델을 확정하지 않았다.
+이 프로젝트의 결과는 한 서버에서 이어진 단일 작업이 아니다.
+아래 네 역할은 서로 다른 물리 장비로 구분한다.
+
+### DL360 Gen9 · Network / SSH test unit
 
 - 서버: HPE ProLiant DL360 Gen9
 - 운영체제: Rocky Linux 10.2
@@ -56,6 +64,21 @@ NIC·Link/Carrier와 OpenSSH 설정을 검증했고, 내부 저장장치가 없�
 
 `eno2`와 `eno3`의 상세 물리 포트, 전체 스위치·VLAN·라우터 토폴로지는 확인하지 않았다.
 실제 주소, MAC, 호스트명, 사용자명과 연결 식별자는 공개 증거에서 제거하거나 자리표시자로 바꿨다.
+
+### DL360 Gen9 · Storage / OS provisioning unit
+
+- 500GB SATA HDD와 front drive bay
+- Smart Array P440ar
+- single-drive RAID0, Array A, Logical Drive 1, 465.73 GiB
+- Rocky installer의 HP Logical Volume `/dev/sda`
+- Rocky Linux 10.2 설치와 GUI boot
+
+이 장비는 Network / SSH test unit과 같은 모델 계열이지만 다른 물리 서버다.
+
+### 다른 물리 장비
+
+- Idle physical server · model not confirmed: 3TB HDD 2개 물리 장착까지만 확인
+- Separate DL360 Gen9 observation unit: Service Map과 내부 섀시 구조 관찰만 수행
 
 ## 4. 직접 수행과 팀 공동 작업
 
@@ -84,6 +107,16 @@ NIC·Link/Carrier와 OpenSSH 설정을 검증했고, 내부 저장장치가 없�
 - 팀원 한 명과 3TB 디스크 2개 물리 장착
 - 작업 과정 사진 기록
 
+**별도 Storage / OS provisioning unit에서 직접 수행**
+
+- 500GB HDD와 carrier 준비, front-bay 장착
+- Smart Array P440ar 접근과 single-drive RAID0 Logical Drive 구성
+- Rocky installer boot, 실패 기록과 retry
+- Rocky Linux 10.2 설치와 설치 후 GUI boot 확인
+
+첫 reference setup 과정은 동료와 강사의 진행을 관찰해 배웠고,
+절차를 이해한 뒤 별도 서버에서 직접 다시 수행했다.
+
 핵심 확인에 사용한 명령은 다음 여섯 개다.
 
 ```bash
@@ -98,7 +131,7 @@ sshd -t -f TEST_CONFIG
 명령 출력은 해당 시점의 관찰 결과다.
 확인하지 않은 상위 계층까지 정상임을 뜻하지 않는다.
 
-사전에 정한 경로 분리와 중단 조건은
+Network / SSH test unit에서 사전에 정한 경로 분리와 중단 조건은
 [`docs/pre-lab-risk-review.md`](docs/pre-lab-risk-review.md)에 정리했다.
 
 ## 5. OpenSSH 설정 복사본 검사
@@ -200,7 +233,32 @@ DIMM, 드라이브 베이, 냉각팬, 추가 부품 고정 구조와 내부 SD �
 
 [별도 유휴 DL360 Gen9 섀시 관찰 보기](docs/dl360-gen9-chassis-observation.md)
 
-## 8. 결과와 공개 증거
+## 8. 별도 DL360 Gen9 스토리지·OS 프로비저닝
+
+500GB SATA HDD를 carrier에 준비해 front bay에 장착하고,
+Smart Array P440ar에서 single-drive RAID0 Logical Drive를 구성했다.
+Rocky installer에서 465.73 GiB HP Logical Volume이 `/dev/sda`로 표시되는 것을 확인했다.
+
+첫 installer boot는 Anaconda·dracut 메시지와 함께 실패했다.
+정확한 root cause는 확정하지 않았으며, media-test installation entry를 사용한 retry가
+installer GUI로 진행된 사실까지만 기록했다. 이후 Rocky Linux 10.2 설치와 GUI boot를 확인했다.
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="evidence/approved-photos/storage-os-provisioning/02-author-front-bay-installation.jpg" alt="별도 DL360 Gen9 전면 bay의 HDD 장착 작업" width="520"><br>
+      <strong>Front-bay installation</strong>
+    </td>
+    <td width="50%">
+      <img src="evidence/approved-photos/storage-os-provisioning/03-ssa-raid0-logical-drive-result.jpg" alt="P440ar single-drive RAID0 Logical Drive 결과" width="520"><br>
+      <strong>Smart Array Logical Drive result</strong>
+    </td>
+  </tr>
+</table>
+
+[CHANGE-004의 전체 작업 기록과 사진 6장 보기](changes/CHANGE-004-storage-os-provisioning.md)
+
+## 9. 결과와 공개 증거
 
 | 주장 | 공개 근거 |
 |---|---|
@@ -210,12 +268,13 @@ DIMM, 드라이브 베이, 냉각팬, 추가 부품 고정 구조와 내부 SD �
 | 물리 상태부터 실제 SSH까지 확인한 순서 | [`eno1·eno4 실습 체크리스트`](docs/troubleshooting-runbook.md) |
 | 유휴 서버 활용 대안, 내부 구조 확인과 3TB 디스크 2개 물리 장착 | [`CHANGE-003 작업 기록 및 시간순 사진`](changes/CHANGE-003-idle-server-disk-installation.md) |
 | 별도 유휴 DL360 Gen9의 상판 서비스 맵·내부 구조 관찰 | [`섀시 관찰 기록`](docs/dl360-gen9-chassis-observation.md) |
+| 별도 DL360 Gen9의 500GB HDD, P440ar single-drive RAID0와 Rocky Linux 10.2 설치 | [`CHANGE-004 작업 기록 및 시간순 사진`](changes/CHANGE-004-storage-os-provisioning.md) |
 
 공개 evidence TXT는 raw transcript가 아니라 실제 관찰을 사람이 익명화·정리한 요약이다.
 원본 증거는 공개 문서와 분리해 보관한다.
 이 저장소는 검증된 제출 파일만 담은 Public Snapshot이며 원본 이력과 비공개 증거를 포함하지 않는다.
 
-## 9. 확인하지 않은 범위
+## 10. 확인하지 않은 범위
 
 - Gateway Ping과 외부 Ping
 - HTTP와 메일 서비스 응답
@@ -228,14 +287,14 @@ DIMM, 드라이브 베이, 냉각팬, 추가 부품 고정 구조와 내부 SD �
 - OpenSSH Include 대상 전체의 완전한 격리
 - 실험 전부터 있던 하드웨어 경고의 원인과 수리
 - 유휴 서버의 정확한 모델과 일부 부품 명칭
-- 장착한 디스크의 시스템·Controller 인식, SMART와 실제 사용 가능 용량
-- RAID·파일시스템·운영체제·가상화
-- 장시간 성능·발열·안정성
+- 모델 미확정 유휴 서버에 장착한 3TB HDD의 시스템·Controller 인식, RAID, SMART, OS, filesystem과 실제 사용 가능 용량
+- Storage / OS provisioning unit의 SMART, RAID redundancy, rebuild, multi-drive RAID와 정확한 첫 boot failure 원인
+- 각 장비의 장시간 성능·발열·안정성과 production operation
 
 첫 분리 확인에서 Carrier가 바뀌지 않은 이유도 추정하지 않았다.
 확인하지 않은 항목은 결과로 확대하지 않는다.
 
-## 10. 개인 프로젝트 1과의 차이
+## 11. 개인 프로젝트 1과의 차이
 
 개인 프로젝트 1은 Azure Load Balancer와 Linux VM의 HTTP 경로를 다뤘다.
 
@@ -244,8 +303,9 @@ Linux 인터페이스, Route와 SSH 경로를 확인했다.
 
 또한 Linux에서 관찰한 NIC·Link/Carrier·Route와,
 1차 작업에서 수행한 서버 분리·내부 확인·상판 재조립·랙 복귀,
-후속 작업에서 랙에 지지된 서버에 수행한 디스크 물리 장착을 함께 다룬다.
+후속 작업에서 랙에 지지된 서버에 수행한 디스크 물리 장착,
+별도 DL360 Gen9의 Smart Array와 Rocky Linux 설치를 함께 다룬다.
 
 개인 프로젝트 1의 HTTP 장애를 반복하지 않았으며,
 여기서는 실제 서버의 NIC·Link 상태, OpenSSH 적용 전 검사와
-유휴 서버의 디스크 물리 장착에 집중했다.
+유휴 서버의 디스크 물리 장착, 별도 Storage / OS provisioning unit의 설치 흐름에 집중했다.

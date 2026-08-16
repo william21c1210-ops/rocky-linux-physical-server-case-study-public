@@ -3,6 +3,19 @@
 이 문서는 물리 포트, Linux 인터페이스와 관찰된 역할의 관계를 정리한다.
 주소, MAC, 연결 식별자와 장비 위치 정보는 공개본에서 제외했다.
 
+## 장비 범위 구분
+
+아래 `eno1`·`eno4` 매핑은 DL360 Gen9 · Network / SSH test unit에만 적용한다.
+Storage / OS provisioning unit은 같은 모델 계열의 별도 물리 서버이며,
+두 장비 사이에 하나의 data path가 있다고 해석하지 않는다.
+
+프로젝트에서 구분한 장비 역할은 다음과 같다.
+
+- DL360 Gen9 · Network / SSH test unit
+- DL360 Gen9 · Storage / OS provisioning unit
+- Idle physical server · model not confirmed
+- Separate DL360 Gen9 observation unit
+
 ## 확인된 경로
 
 ```text
@@ -12,6 +25,29 @@
 
 `eno4`와 `eno1`의 역할은 분리돼 있었다.
 실험은 주 경로인 `eno4`를 변경하지 않고 평소 미사용인 `eno1`에서 수행했다.
+
+## 별도 Storage / OS provisioning unit의 매핑
+
+별도 DL360 Gen9에서는 다음 물리·논리 연결을 직접 확인했다.
+
+```text
+500GB SATA physical drive
+→ Smart Array P440ar
+→ single-drive RAID0
+→ Array A
+→ Logical Drive 1 · 465.73 GiB
+→ HP Logical Volume
+→ installer-visible /dev/sda
+→ Rocky Linux 10.2 installation
+```
+
+이 연결은 Storage / OS provisioning unit 내부의 관찰 범위다.
+Network / SSH test unit의 `eno1`·`eno4` 결과나 모델 미확정 유휴 서버의
+3TB HDD 2개 물리 장착 결과와 이어 붙이지 않는다.
+
+single-drive RAID0은 redundancy 또는 drive fault tolerance를 제공한다는 뜻이 아니다.
+정확한 첫 installer boot failure 원인, SMART, rebuild와 장시간 안정성은 확인하지 않았다.
+상세 기록은 [`CHANGE-004`](../changes/CHANGE-004-storage-os-provisioning.md)에 남겼다.
 
 ## 매핑 표
 
