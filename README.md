@@ -6,7 +6,7 @@
 
 Azure VM에서 보이지 않던 물리 계층이 궁금해 별도 HPE 실습 장비에서
 NIC·Link/Carrier와 OpenSSH를 검증하고, 모델 미확정 유휴 서버에는 3TB HDD 2개를 물리 장착했으며,
-또 다른 DL360 Gen9에서는 500GB HDD의 P440ar single-drive RAID0 구성과 Rocky Linux 10.2 설치를 확인했다.
+또 다른 DL360 Gen9에서는 500GB HDD를 P440ar에서 single-drive RAID0으로 구성하고 Rocky Linux 10.2를 설치했다.
 
 ![프로젝트 2의 검증된 물리·논리 범위도](docs/diagrams/project2-verified-scope.png)
 
@@ -42,7 +42,7 @@ NIC·Link/Carrier와 OpenSSH를 검증하고, 모델 미확정 유휴 서버에�
 
 이후 추가 HDD를 사용할 수 있게 되면서, 앞선 reference setup에서 배운 흐름을
 별도 DL360 Gen9에서 직접 다시 수행했다. 500GB HDD와 Smart Array를 구성하고
-첫 installer boot 실패도 숨기지 않은 채 Rocky Linux 설치 완료까지 단계별로 기록했다.
+첫 installer boot 실패와 retry 과정도 함께 기록하고 Rocky Linux 설치 완료까지 확인했다.
 
 ## 3. 실제 환경
 
@@ -240,8 +240,11 @@ Smart Array P440ar에서 single-drive RAID0 Logical Drive를 구성했다.
 Rocky installer에서 465.73 GiB HP Logical Volume이 `/dev/sda`로 표시되는 것을 확인했다.
 
 첫 installer boot는 Anaconda·dracut 메시지와 함께 실패했다.
-정확한 root cause는 확정하지 않았으며, media-test installation entry를 사용한 retry가
-installer GUI로 진행된 사실까지만 기록했다. 이후 Rocky Linux 10.2 설치와 GUI boot를 확인했다.
+정확한 원인은 확정하지 못했다.
+이후 `Test this media & install Rocky Linux 10.2` 항목으로 재시도했고
+installer GUI까지 진행됐다.
+이 재시도와 첫 실패 원인 사이의 인과관계는 단정하지 않는다.
+이후 Rocky Linux 10.2 설치와 GUI boot를 확인했다.
 
 <table>
   <tr>

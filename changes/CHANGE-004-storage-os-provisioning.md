@@ -12,12 +12,9 @@ Network / SSH test unit, 3TB HDD 2개를 물리 장착한 모델 미확정 유�
 
 ## 학습 경로
 
-처음 접한 서버 설정 상황에서는 동료와 강사가 disk·controller·boot setup을
-진행하는 과정을 옆에서 보고 배웠다. 절차를 이해한 뒤 별도 DL360 Gen9 실습 서버에서
-500GB HDD 준비부터 Smart Array 구성과 Rocky Linux 설치까지 직접 다시 수행했다.
-
-처음부터 아무 도움 없이 원인을 발견하거나 모든 HPE 서버 문제를 독립적으로
-해결했다는 의미로 확대하지 않는다.
+처음에는 동료와 강사가 디스크·컨트롤러·부팅 설정을 진행하는 과정을 보며 절차를 익혔다.
+이후 별도 DL360 Gen9에서 500GB HDD 장착부터 Smart Array 구성,
+Rocky Linux 설치까지 직접 다시 수행했다.
 
 ## 실제 수행 장비
 
@@ -48,8 +45,8 @@ Smart Storage Administrator에서 다음 흐름을 확인하고 구성했다.
 → 465.73 GiB (500.07 GB)
 ```
 
-여기서 RAID0은 500GB HDD 한 개로 만든 `single-drive RAID0`이다.
-Redundancy, fault tolerance 또는 high availability를 제공한다고 해석하지 않는다.
+이 구성은 500GB HDD 한 개를 사용한 `single-drive RAID0`이다.
+디스크 중복성이나 장애 허용을 제공하지 않는다.
 
 ## 첫 installer boot 실패
 
@@ -60,16 +57,13 @@ Redundancy, fault tolerance 또는 high availability를 제공한다고 해석�
 - `It seems that the boot has failed`
 - `inst.stage2`와 `inst.repo` 관련 안내
 
-판정은 `FIRST INSTALLER BOOT FAILED`, `ROOT CAUSE NOT CONFIRMED`까지다.
-화면에 함께 나타난 경고, USB, FIPS, Smart Array, boot mode 또는 media corruption 중
-어느 하나를 정확한 root cause로 확정하지 않았다.
+첫 installer boot가 실패한 사실은 확인했지만 정확한 원인은 확정하지 못했다.
 
 ## Retry와 Installation Destination
 
 첫 실패 뒤 `Test this media & install Rocky Linux 10.2` 항목으로 다시 boot했고
-installer GUI까지 진행됐다. 정확한 표현 범위는
-`retry using the media-test installation entry proceeded successfully`이며,
-media-test 항목이 앞선 문제를 해결했다고 인과관계를 단정하지 않는다.
+installer GUI까지 진행됐다.
+이 재시도와 첫 실패 원인 사이의 인과관계는 단정하지 않는다.
 
 Rocky installer의 Installation Destination에서 다음 장치를 구분했다.
 
@@ -118,8 +112,7 @@ Settings → About 화면에서 다음 정보를 확인했다.
 - 절차를 이해한 뒤 별도 서버에서 직접 재현했다.
 - 첫 installer failure 때 화면 메시지와 외부 참고 자료를 확인했다.
 
-이 기록은 production server deployment, enterprise storage 운영 또는
-모든 controller 장애를 해결할 수 있다는 주장이 아니다.
+이 문서의 범위는 실습 서버에서 수행한 단일 디스크 구성과 OS 설치까지다.
 
 ## VERIFIED
 
@@ -146,8 +139,8 @@ Settings → About 화면에서 다음 정보를 확인했다.
 
 ## 사진 기록
 
-아래 파일은 사용자가 선별한 source를 식별정보 제거와 metadata 검사를 거쳐 만든
-sanitized derivative다. 각 사진은 시간순 작업 기록으로 사용한다.
+아래 사진은 원본에서 식별정보와 메타데이터를 제거한 공개용 파생본이며,
+작업 순서에 따라 정리했다.
 
 <table>
   <tr>
@@ -179,9 +172,10 @@ sanitized derivative다. 각 사진은 시간순 작업 기록으로 사용한�
       HP Logical Volume `sda`와 SanDisk installer USB `sdb`를 구분했다.
     </td>
     <td width="33%">
-      <img src="../evidence/approved-photos/storage-os-provisioning/06-rocky-installed-system-about.jpg" alt="사용자가 설치 완료 기록으로 선별한 공개용 이미지" width="420"><br>
-      <strong>06 · Installed system record</strong><br>
-      사용자가 설치 완료 기록으로 선별한 source의 sanitized derivative다.
+      <img src="../evidence/approved-photos/storage-os-provisioning/06-rocky-installed-system-about.jpg" alt="Rocky Linux 10.2 설치 후 Settings About 화면" width="420"><br>
+      <strong>06 · Rocky Linux 10.2 installed</strong><br>
+      Settings → About에서 Rocky Linux 10.2, DL360 Gen9,
+      192.0 GiB memory와 500.1 GB disk capacity를 확인했다.
     </td>
   </tr>
 </table>

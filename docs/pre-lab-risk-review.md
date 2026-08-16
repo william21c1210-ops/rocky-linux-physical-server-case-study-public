@@ -4,11 +4,9 @@
 
 ## 문서 적용 범위
 
-이 검토는 DL360 Gen9 · Network / SSH test unit에서 수행한 `eno1` Link/Carrier 실험에 적용한다.
-별도 DL360 Gen9 · Storage / OS provisioning unit의 HDD·Smart Array·Rocky Linux 작업과,
-모델 미확정 유휴 서버의 3TB HDD 물리 장착에는 소급 적용하지 않는다.
-
-각 결과는 서로 다른 물리 장비에서 나온 것이며 장비 사이에 하나의 end-to-end 경로가 있다고 해석하지 않는다.
+이 검토는 DL360 Gen9 · Network / SSH test unit의
+`eno1` Link/Carrier 실험 전에 작성한 내용이다.
+Storage / OS provisioning unit과 모델 미확정 유휴 서버의 작업에는 적용하지 않는다.
 
 ## 경로 분리
 
@@ -41,21 +39,11 @@
 공개 증거에서는 서버명, 주소, 계정, MAC과 위치 정보를 대체하거나 제거한다.
 
 관찰한 사실과 해석을 구분하고 미수행 항목은 그대로 표시한다.
-사진은 공개 증거로 추가하지 않았다.
+이 사전 검토 당시에는 사진을 공개 증거로 포함하지 않았다.
+이후 Public Snapshot에는 식별정보를 제거한 작업 사진을 보조 증거로 추가했다.
 
 별도 공식 변경 티켓은 사용하지 않았다.
 서버 사용 가능 전달, 다른 로컬 사용자 부재와 콘솔 접근처럼 직접 확인한 범위만 기록한다.
 
 실습 전부터 있던 일반 하드웨어 상태 경고는 이번 NIC 실험의 원인으로 다루지 않는다.
 해당 경고의 진단과 복구는 이 작업 범위 밖이다.
-
-## 별도 Storage / OS provisioning 기록의 경계
-
-별도 DL360 Gen9에서는 500GB SATA HDD, Smart Array P440ar,
-single-drive RAID0 Logical Drive와 Rocky Linux 10.2 설치 흐름을 확인했다.
-이 결과는 Network / SSH test unit의 접속 안전 검토를 변경하지 않는다.
-
-첫 installer boot failure의 정확한 원인은 확정하지 않았고,
-single-drive RAID0을 redundancy나 production storage로 평가하지 않았다.
-상세 수행·실패·retry와 미확인 범위는
-[`CHANGE-004`](../changes/CHANGE-004-storage-os-provisioning.md)에 별도로 기록했다.
