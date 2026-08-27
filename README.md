@@ -270,14 +270,16 @@ DIMM, 드라이브 베이, 냉각팬, 추가 부품 고정 구조와 내부 SD �
 
 상세 역할과 미수행 범위는 [`CHANGE-003 작업 기록`](changes/CHANGE-003-idle-server-disk-installation.md)에 남겼다.
 
-### 추가 관찰 — 별도 유휴 DL360 Gen9
+### 별도 DL360 Gen9 · Hardware Practice
 
 기존 NIC 실습 서버와 같은 모델 계열이지만 다른 물리 장비인
-별도 유휴 HPE ProLiant DL360 Gen9의 상판 서비스 가이드와 내부 구조를 확인했다.
-이 장비에서는 부팅·OS·네트워크·스토리지 상태를 검증하지 않았으며,
-섀시 구조 비교 관찰만 기록했다.
+별도 HPE ProLiant DL360 Gen9에서 상판 Service Map과 내부 섀시 구조를 확인하고,
+CPU·DIMM·PSU를 분리·재장착했다.
 
-[별도 유휴 DL360 Gen9 섀시 관찰 보기](docs/dl360-gen9-chassis-observation.md)
+이 장비에서는 부팅·OS·네트워크·스토리지 상태를 검증하지 않았고,
+고장 진단, 불량 부품 교체, CPU·DIMM·PSU 상태 검증도 수행하지 않았다.
+
+[별도 DL360 Gen9 hardware practice 기록 보기](docs/dl360-gen9-chassis-observation.md)
 
 ## 8. 별도 DL360 Gen9 스토리지·OS 프로비저닝
 
@@ -316,7 +318,7 @@ installer GUI까지 진행됐다.
 | `eno1` Carrier 변화와 같은 케이블 재연결 Rollback | [`CHANGE-002`](changes/CHANGE-002-eno1-link-carrier.md), [`INCIDENT-001`](incidents/observed/INCIDENT-001-eno1-link-carrier.md), [`Link evidence`](evidence/sanitized-public/2026-08-04-eno1-link-carrier.txt), [`direct-link photo`](evidence/approved-photos/link-carrier/01-author-eno1-direct-rj45-test.jpg) |
 | 물리 상태부터 실제 SSH까지 확인한 순서 | [`eno1·eno4 실습 체크리스트`](docs/troubleshooting-runbook.md) |
 | 유휴 서버 활용 대안, 내부 구조 확인과 3TB 디스크 2개 물리 장착 | [`CHANGE-003 작업 기록 및 시간순 사진`](changes/CHANGE-003-idle-server-disk-installation.md) |
-| 별도 유휴 DL360 Gen9의 상판 서비스 맵·내부 구조 관찰 | [`섀시 관찰 기록`](docs/dl360-gen9-chassis-observation.md) |
+| 별도 DL360 Gen9의 Service Map·내부 구조 확인과 CPU·DIMM·PSU 분리·재장착 | [`hardware practice 기록`](docs/dl360-gen9-chassis-observation.md), [`CPU photo`](evidence/approved-photos/hardware-practice/01-dl360-gen9-cpu-removal-reinstall.jpg), [`PSU photo`](evidence/approved-photos/hardware-practice/02-dl360-gen9-psu-removal-reinstall.jpg) |
 | 별도 DL360 Gen9의 500GB HDD, P440ar single-drive RAID0와 Rocky Linux 10.2 설치 | [`CHANGE-004 작업 기록 및 시간순 사진`](changes/CHANGE-004-storage-os-provisioning.md) |
 
 공개 evidence TXT는 raw transcript가 아니라 실제 관찰을 사람이 익명화·정리한 요약이다.
