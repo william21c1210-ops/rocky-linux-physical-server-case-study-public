@@ -2,7 +2,7 @@
 
 **서로 다른 HPE 실습 장비에서 NIC·Link/OpenSSH, 물리 HDD 장착, Smart Array와 Rocky Linux 설치 흐름을 역할별로 확인한 기록**
 
-## 1. 한 문장 요약
+## 1. 요약
 
 Azure VM에서 보이지 않던 물리 계층이 궁금해 별도 HPE 실습 장비에서
 NIC·Link/Carrier와 OpenSSH를 검증하고, 모델 미확정 유휴 서버에는 3TB HDD 2개를 물리 장착했으며,
