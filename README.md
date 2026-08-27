@@ -360,3 +360,19 @@ Linux 인터페이스, Route와 SSH 경로를 확인했다.
 개인 프로젝트 1의 HTTP 장애를 반복하지 않았으며,
 여기서는 실제 서버의 NIC·Link 상태, OpenSSH 적용 전 검사와
 유휴 서버의 디스크 물리 장착, 별도 Storage / OS provisioning unit의 설치 흐름에 집중했다.
+
+---
+
+## Supplementary · NetScaler Physical Handling
+
+Project 02의 핵심 Unit A–D와는 별도로, 팀원들과 NetScaler appliance를 랙에서 분리하고 PSU module의 위치를 확인한 뒤 물리적 분리·재장착을 실습했다.
+
+<img src="evidence/approved-photos/supplementary-netscaler/01-netscaler-rack-removal.jpg" alt="NetScaler appliance rack removal" width="700">
+
+**공개 범위:** team rack removal · PSU physical handling  
+**미수행 범위:** network configuration · traffic validation · HA · firmware · electrical validation
+
+PSU handling을 포함한 전체 Supplementary 기록은 [Portfolio Page 9](portfolio/Project02_Physical_Server_Portfolio.pdf)에서 확인할 수 있다.
+
+> 이 활동은 Project 02의 핵심 Unit A–D와 분리된 supplementary physical practice로만 기록한다.
+
