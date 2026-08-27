@@ -8,7 +8,7 @@
 
 이 문서의 Storage / OS provisioning unit은 NIC·Link/Carrier와 OpenSSH를 확인한
 Network / SSH test unit, 3TB HDD 2개를 물리 장착한 모델 미확정 유휴 서버,
-섀시 구조만 살펴본 관찰 장비와 모두 다른 물리 서버다.
+CPU·DIMM·PSU 분리·재장착을 수행한 별도 DL360 Gen9 hardware practice unit과 모두 다른 물리 서버다.
 
 ## 학습 경로
 
