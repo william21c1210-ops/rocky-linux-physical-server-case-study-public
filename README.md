@@ -340,6 +340,7 @@ installer GUI까지 진행됐다.
 - 유휴 서버의 정확한 모델과 일부 부품 명칭
 - 모델 미확정 유휴 서버에 장착한 3TB HDD의 시스템·Controller 인식, RAID, SMART, OS, filesystem과 실제 사용 가능 용량
 - Storage / OS provisioning unit의 SMART, RAID redundancy, rebuild, multi-drive RAID와 정확한 첫 boot failure 원인
+- Hardware practice unit의 CPU·DIMM·PSU 정상 동작·health validation, 고장 진단과 불량 부품 판정·교체
 - 각 장비의 장시간 성능·발열·안정성과 production operation
 
 첫 분리 확인에서 Carrier가 바뀌지 않은 이유도 추정하지 않았다.
@@ -354,12 +355,14 @@ Linux 인터페이스, Route와 SSH 경로를 확인했다.
 
 또한 Linux에서 관찰한 NIC·Link/Carrier·Route와,
 1차 작업에서 수행한 서버 분리·내부 확인·상판 재조립·랙 복귀,
-후속 작업에서 랙에 지지된 서버에 수행한 디스크 물리 장착,
-별도 DL360 Gen9의 Smart Array와 Rocky Linux 설치를 함께 다룬다.
+후속 작업에서 랙에 지지된 서버에 수행한 3TB 디스크 2개 물리 장착,
+별도 DL360 Gen9의 Smart Array와 Rocky Linux 설치,
+또 다른 DL360 Gen9의 Service Map 확인과 CPU·DIMM·PSU 분리·재장착을 함께 다룬다.
 
 개인 프로젝트 1의 HTTP 장애를 반복하지 않았으며,
-여기서는 실제 서버의 NIC·Link 상태, OpenSSH 적용 전 검사와
-유휴 서버의 디스크 물리 장착, 별도 Storage / OS provisioning unit의 설치 흐름에 집중했다.
+여기서는 실제 서버의 NIC·Link 상태와 OpenSSH 적용 전 검사,
+물리 HDD·Smart Array·Rocky Linux 프로비저닝,
+별도 장비의 CPU·DIMM·PSU hardware handling에 집중했다.
 
 ---
 
