@@ -2,21 +2,59 @@
 
 **서로 다른 HPE 실습 장비에서 NIC·Link/OpenSSH, 물리 HDD 장착, Smart Array와 Rocky Linux 설치 흐름을 역할별로 확인한 기록**
 
+## Portfolio
+
+**[10-page Project Portfolio PDF 보기](portfolio/Project02_Physical_Server_Portfolio.pdf)**
+
+[![Project 02 Portfolio Preview](portfolio/Project02_Portfolio_Preview.png)](portfolio/Project02_Physical_Server_Portfolio.pdf)
+
+## 실제 작업 사진
+
+<table>
+  <tr>
+    <td width="50%">
+      <a href="evidence/approved-photos/link-carrier/01-author-eno1-direct-rj45-test.jpg">
+        <img src="evidence/approved-photos/link-carrier/01-author-eno1-direct-rj45-test.jpg" width="480">
+      </a><br>
+      <strong>NIC / Link</strong><br>
+      노트북과 <code>eno1</code> 경로의 RJ45 직접 연결 및 Link/Carrier 확인
+    </td>
+    <td width="50%">
+      <a href="evidence/approved-photos/storage-os-provisioning/02-author-front-bay-installation.jpg">
+        <img src="evidence/approved-photos/storage-os-provisioning/02-author-front-bay-installation.jpg" width="480">
+      </a><br>
+      <strong>Storage</strong><br>
+      별도 DL360 Gen9의 500GB HDD front-bay 장착
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <a href="evidence/approved-photos/hardware-practice/01-dl360-gen9-cpu-removal-reinstall.jpg">
+        <img src="evidence/approved-photos/hardware-practice/01-dl360-gen9-cpu-removal-reinstall.jpg" width="480">
+      </a><br>
+      <strong>CPU Handling</strong><br>
+      별도 DL360 Gen9에서 CPU 분리·재장착 실습
+    </td>
+    <td width="50%">
+      <a href="evidence/approved-photos/hardware-practice/02-dl360-gen9-psu-removal-reinstall.jpg">
+        <img src="evidence/approved-photos/hardware-practice/02-dl360-gen9-psu-removal-reinstall.jpg" width="480">
+      </a><br>
+      <strong>PSU Handling</strong><br>
+      별도 DL360 Gen9에서 PSU 분리·재장착 실습
+    </td>
+  </tr>
+</table>
+
+> 사진은 작업 범위를 보여주는 보조 증거이며, 장비 상태나 부품 정상 여부를 검증했다는 의미는 아니다.
+
 ## 1. 요약
 
-Azure VM에서 보이지 않던 물리 계층이 궁금해 별도 HPE 실습 장비에서
-NIC·Link/Carrier와 OpenSSH를 검증하고, 모델 미확정 유휴 서버에는 3TB HDD 2개를 물리 장착했으며,
-또 다른 DL360 Gen9에서는 500GB HDD를 P440ar에서 single-drive RAID0으로 구성하고 Rocky Linux 10.2를 설치했다.
+- **Network / SSH:** NIC ↔ Linux interface mapping, RJ45 Link/Carrier 확인, OpenSSH 적용 전 검사
+- **Storage / OS:** 500GB HDD → P440ar single-drive RAID0 → Rocky Linux 10.2 설치
+- **Physical hardware:** 별도 장비에서 2×3TB HDD 장착 및 CPU/DIMM/PSU handling
+- **Scope:** 서로 다른 물리 장비의 결과를 구분하고 미검증 범위는 별도로 기록
 
-![프로젝트 2의 검증된 물리·논리 범위도](docs/diagrams/project2-verified-scope.png)
-
-## 핵심 결과
-
-- 물리 NIC 4 ↔ `eno4`, NIC 1 ↔ `eno1`을 매핑하고 Carrier `0 → 1 → 1(첫 분리에서 변화 없음) → 0 → 1 → 0` 흐름을 확인했다.
-- OpenSSH 현재 설정과 정상 복사본은 종료 코드 `0`, 오류 복사본은 `255`였으며 운영 파일 변경과 reload·restart는 없었다.
-- 모델 미확정 유휴 서버에 3TB HDD 2개를 물리 장착했다. Controller 인식·RAID·SMART·OS·filesystem·실제 사용 가능 용량은 확인하지 않았다.
-- 별도 DL360 Gen9에서 500GB SATA HDD를 장착하고 P440ar single-drive RAID0, Logical Drive 1과 465.73 GiB를 구성했다.
-- Rocky installer에서 HP Logical Volume `/dev/sda`를 확인하고 Rocky Linux 10.2 설치와 GUI boot를 확인했다. 첫 installer boot 실패의 정확한 원인은 확정하지 않았다.
+[검증된 전체 장비 범위도 보기](docs/diagrams/project2-verified-scope.png)
 
 ## 2. 시작 이유
 
