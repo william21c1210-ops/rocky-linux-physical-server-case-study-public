@@ -116,7 +116,7 @@
 ### 다른 물리 장비
 
 - Idle physical server · model not confirmed: 3TB HDD 2개 물리 장착까지만 확인
-- Separate DL360 Gen9 observation unit: Service Map과 내부 섀시 구조 관찰만 수행
+- Separate DL360 Gen9 hardware practice unit: Service Map과 내부 섀시 구조를 확인하고 CPU·DIMM·PSU 분리·재장착 실습
 
 ## 4. 직접 수행과 팀 공동 작업
 
