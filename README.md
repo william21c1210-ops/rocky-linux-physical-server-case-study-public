@@ -153,7 +153,15 @@
 - Rocky Linux 10.2 설치와 설치 후 GUI boot 확인
 
 첫 reference setup 과정은 동료와 강사의 진행을 관찰해 배웠고,
-절차를 이해한 뒤 별도 서버에서 직접 다시 수행했다.
+절차를 이해한 뒤 별도 Storage / OS provisioning unit에서 직접 다시 수행했다.
+
+**별도 DL360 Gen9 hardware practice unit에서 직접 수행**
+
+- Access-panel Service Map 확인과 내부 섀시 구조 관찰
+- CPU 분리·재장착
+- DIMM 분리·재장착
+- PSU 분리·재장착
+- 고장 진단, 불량 부품 교체, 부품 상태 검증은 수행하지 않음
 
 핵심 확인에 사용한 명령은 다음 여섯 개다.
 
